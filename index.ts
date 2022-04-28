@@ -1,4 +1,4 @@
-export function makeDraggable(el: HTMLElement, handleDragStart: (event: Event) => void, handleDragEnd: (event: Event) => void){
+ function makeDraggable(el: HTMLElement, handleDragStart: (event: Event) => void, handleDragEnd: (event: Event) => void){
     
     function addDraggable(el: HTMLElement){
     
@@ -30,7 +30,7 @@ export function makeDraggable(el: HTMLElement, handleDragStart: (event: Event) =
 }
 
 
-export function makeResizable(ref:HTMLElement, placedRef:HTMLElement){
+ function makeResizable(ref:HTMLElement, placedRef:HTMLElement){
 
     const refWithDots = placedRef ? placedRef : ref;
 
@@ -216,3 +216,8 @@ export function makeResizable(ref:HTMLElement, placedRef:HTMLElement){
     }
 
 }
+
+export default {
+    makeDraggable,
+    makeResizable
+} 

@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.makeResizable = exports.makeDraggable = void 0;
 function makeDraggable(el, handleDragStart, handleDragEnd) {
     function addDraggable(el) {
         el.draggable = true;
@@ -25,7 +24,6 @@ function makeDraggable(el, handleDragStart, handleDragEnd) {
     addDragstart(el);
     addDragend(el);
 }
-exports.makeDraggable = makeDraggable;
 function makeResizable(ref, placedRef) {
     var refWithDots = placedRef ? placedRef : ref;
     function addCss(divRefs) {
@@ -179,4 +177,7 @@ function makeResizable(ref, placedRef) {
         }
     }
 }
-exports.makeResizable = makeResizable;
+exports.default = {
+    makeDraggable: makeDraggable,
+    makeResizable: makeResizable
+};
