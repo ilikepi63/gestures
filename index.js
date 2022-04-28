@@ -1,83 +1,65 @@
-export function makeDraggable(el, handleDragStart, handleDragEnd){
-    
-    function addDraggable(el){
-    
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.makeResizable = exports.makeDraggable = void 0;
+function makeDraggable(el, handleDragStart, handleDragEnd) {
+    function addDraggable(el) {
         el.draggable = true;
         el.style.position = "absolute";
         el.style.cursor = "grab";
-    
-        el?.addEventListener("mousedown", () => {
-            if(el) el.style.cursor = "grabbing";
+        el === null || el === void 0 ? void 0 : el.addEventListener("mousedown", function () {
+            if (el)
+                el.style.cursor = "grabbing";
         });
-    
-        el?.addEventListener("mouseup", () => {
-            if(el) el.style.cursor = "grab";
+        el === null || el === void 0 ? void 0 : el.addEventListener("mouseup", function () {
+            if (el)
+                el.style.cursor = "grab";
         });
     }
-    
-    function addDragstart(el){
+    function addDragstart(el) {
         el.addEventListener("dragstart", handleDragStart, false);
     }
-    
-    function addDragend(el){
+    function addDragend(el) {
         el.addEventListener('dragend', handleDragEnd, false);
     }
-    
     addDraggable(el);
     addDragstart(el);
     addDragend(el);
-
 }
-
-
-export function makeResizable(ref, placedRef){
-
-    const refWithDots = placedRef ? placedRef : ref;
-
-    function addCss(divRefs){
-
-        for(let i = 0; i < divRefs.length; i ++){
+exports.makeDraggable = makeDraggable;
+function makeResizable(ref, placedRef) {
+    var refWithDots = placedRef ? placedRef : ref;
+    function addCss(divRefs) {
+        for (var i = 0; i < divRefs.length; i++) {
             divRefs[i].style.width = "10px";
             divRefs[i].style.height = "10px";
             divRefs[i].style.position = "absolute";
         }
-
-
     }
-
-    const topLeftResizer = document.createElement("div");
-    const topRightResizer = document.createElement("div");
-    const bottomLeftResizer = document.createElement("div");
-    const bottomRightResizer = document.createElement("div");
-
+    var topLeftResizer = document.createElement("div");
+    var topRightResizer = document.createElement("div");
+    var bottomLeftResizer = document.createElement("div");
+    var bottomRightResizer = document.createElement("div");
     refWithDots.appendChild(topLeftResizer);
     refWithDots.appendChild(topRightResizer);
     refWithDots.appendChild(bottomLeftResizer);
     refWithDots.appendChild(bottomRightResizer);
-
     addCss([topLeftResizer, topRightResizer, bottomLeftResizer, bottomRightResizer]);
-
     topLeftResizer.style.left = "-5px";
     topLeftResizer.style.top = "-5px";
     topLeftResizer.style.cursor = "nwse-resize";
-
     topRightResizer.style.right = "-5px";
     topRightResizer.style.top = "-5px";
     topRightResizer.style.cursor = "nesw-resize";
-
     bottomLeftResizer.style.left = "-5px";
     bottomLeftResizer.style.bottom = "-5px";
     bottomLeftResizer.style.cursor = "nesw-resize";
-
     bottomRightResizer.style.right = "-5px";
     bottomRightResizer.style.bottom = "-5px";
     bottomRightResizer.style.cursor = "nwse-resize";
-
-    let originalWidth, originalHeight, originalX, originalY, originalMouseX, originalMouseY;
-    let originalWidthDots, originalHeightDots, originalXDots, originalYDots;
-
-    topLeftResizer.addEventListener("mousedown", (event) => {
-        event.preventDefault()
+    var originalWidth, originalHeight, originalX, originalY, originalMouseX, originalMouseY;
+    var originalWidthDots, originalHeightDots, originalXDots, originalYDots;
+    topLeftResizer.addEventListener("mousedown", function (event) {
+        event.preventDefault();
         originalWidth = parseFloat(getComputedStyle(ref, null).getPropertyValue('width').replace('px', ''));
         originalWidthDots = parseFloat(getComputedStyle(refWithDots, null).getPropertyValue('width').replace('px', ''));
         originalHeight = parseFloat(getComputedStyle(ref, null).getPropertyValue('height').replace('px', ''));
@@ -88,14 +70,11 @@ export function makeResizable(ref, placedRef){
         originalYDots = refWithDots.getBoundingClientRect().top;
         originalMouseX = event.pageX;
         originalMouseY = event.pageY;
-
-
-        window.addEventListener('mousemove', resizeTopLeft)
-        window.addEventListener('mouseup', ()=> window.removeEventListener("mousemove",resizeTopLeft))
+        window.addEventListener('mousemove', resizeTopLeft);
+        window.addEventListener('mouseup', function () { return window.removeEventListener("mousemove", resizeTopLeft); });
     });
-
-    topRightResizer.addEventListener("mousedown", (event) => {
-        event.preventDefault()
+    topRightResizer.addEventListener("mousedown", function (event) {
+        event.preventDefault();
         originalWidth = parseFloat(getComputedStyle(ref, null).getPropertyValue('width').replace('px', ''));
         originalWidthDots = parseFloat(getComputedStyle(refWithDots, null).getPropertyValue('width').replace('px', ''));
         originalHeight = parseFloat(getComputedStyle(ref, null).getPropertyValue('height').replace('px', ''));
@@ -106,13 +85,11 @@ export function makeResizable(ref, placedRef){
         originalYDots = refWithDots.getBoundingClientRect().top;
         originalMouseX = event.pageX;
         originalMouseY = event.pageY;
-
-
-        window.addEventListener('mousemove', resizeTopRight)
-        window.addEventListener('mouseup', ()=> window.removeEventListener("mousemove",resizeTopRight))
+        window.addEventListener('mousemove', resizeTopRight);
+        window.addEventListener('mouseup', function () { return window.removeEventListener("mousemove", resizeTopRight); });
     });
-    bottomLeftResizer.addEventListener("mousedown", (event) => {
-        event.preventDefault()
+    bottomLeftResizer.addEventListener("mousedown", function (event) {
+        event.preventDefault();
         originalWidth = parseFloat(getComputedStyle(ref, null).getPropertyValue('width').replace('px', ''));
         originalWidthDots = parseFloat(getComputedStyle(refWithDots, null).getPropertyValue('width').replace('px', ''));
         originalHeight = parseFloat(getComputedStyle(ref, null).getPropertyValue('height').replace('px', ''));
@@ -123,13 +100,11 @@ export function makeResizable(ref, placedRef){
         originalYDots = refWithDots.getBoundingClientRect().top;
         originalMouseX = event.pageX;
         originalMouseY = event.pageY;
-
-
-        window.addEventListener('mousemove', resizeBottomLeft)
-        window.addEventListener('mouseup', ()=> window.removeEventListener("mousemove",resizeBottomLeft))
+        window.addEventListener('mousemove', resizeBottomLeft);
+        window.addEventListener('mouseup', function () { return window.removeEventListener("mousemove", resizeBottomLeft); });
     });
-    bottomRightResizer.addEventListener("mousedown", (event) => {
-        event.preventDefault()
+    bottomRightResizer.addEventListener("mousedown", function (event) {
+        event.preventDefault();
         originalWidth = parseFloat(getComputedStyle(ref, null).getPropertyValue('width').replace('px', ''));
         originalWidthDots = parseFloat(getComputedStyle(refWithDots, null).getPropertyValue('width').replace('px', ''));
         originalHeight = parseFloat(getComputedStyle(ref, null).getPropertyValue('height').replace('px', ''));
@@ -140,79 +115,68 @@ export function makeResizable(ref, placedRef){
         originalYDots = refWithDots.getBoundingClientRect().top;
         originalMouseX = event.pageX;
         originalMouseY = event.pageY;
-
-
-        window.addEventListener('mousemove', resizeBottomRight)
-        window.addEventListener('mouseup', ()=> window.removeEventListener("mousemove",resizeBottomRight))
+        window.addEventListener('mousemove', resizeBottomRight);
+        window.addEventListener('mouseup', function () { return window.removeEventListener("mousemove", resizeBottomRight); });
     });
-
-
-    
-    function resizeTopLeft(e){
-        const width = originalWidth - (e.pageX - originalMouseX)
-        const height = originalHeight - (e.pageY - originalMouseY)
-        const widthDots = originalWidthDots - (e.pageX - originalMouseX);
-        const heightDots = originalHeightDots - (e.pageY - originalMouseY)
+    function resizeTopLeft(e) {
+        var width = originalWidth - (e.pageX - originalMouseX);
+        var height = originalHeight - (e.pageY - originalMouseY);
+        var widthDots = originalWidthDots - (e.pageX - originalMouseX);
+        var heightDots = originalHeightDots - (e.pageY - originalMouseY);
         if (width > 300) {
-          ref.style.width = width + 'px'
-          ref.style.left = originalX + (e.pageX - originalMouseX) + 'px';
-          refWithDots.style.width = widthDots + 'px'
+            ref.style.width = width + 'px';
+            ref.style.left = originalX + (e.pageX - originalMouseX) + 'px';
+            refWithDots.style.width = widthDots + 'px';
         }
         if (height > 150) {
-          ref.style.height = height + 'px'
-          ref.style.top = originalY + (e.pageY - originalMouseY) + 'px'
-          refWithDots.style.height  = heightDots  + 'px'
+            ref.style.height = height + 'px';
+            ref.style.top = originalY + (e.pageY - originalMouseY) + 'px';
+            refWithDots.style.height = heightDots + 'px';
         }
     }
-
-    
-    function resizeTopRight(e){
-        const width = originalWidth + (e.pageX - originalMouseX)
-        const height = originalHeight - (e.pageY - originalMouseY)
-        const widthDots = originalWidthDots + (e.pageX - originalMouseX);
-        const heightDots = originalHeightDots - (e.pageY - originalMouseY)
+    function resizeTopRight(e) {
+        var width = originalWidth + (e.pageX - originalMouseX);
+        var height = originalHeight - (e.pageY - originalMouseY);
+        var widthDots = originalWidthDots + (e.pageX - originalMouseX);
+        var heightDots = originalHeightDots - (e.pageY - originalMouseY);
         if (width > 300) {
-            ref.style.width = width + 'px'
-            refWithDots.style.width = widthDots + 'px'
+            ref.style.width = width + 'px';
+            refWithDots.style.width = widthDots + 'px';
         }
         if (height > 150) {
-            ref.style.height = height + 'px'
-            refWithDots.style.height = heightDots + 'px'
-            ref.style.top = originalY + (e.pageY - originalMouseY) + 'px'
+            ref.style.height = height + 'px';
+            refWithDots.style.height = heightDots + 'px';
+            ref.style.top = originalY + (e.pageY - originalMouseY) + 'px';
         }
     }
-
-    
-    function resizeBottomLeft(e){
-        const height = originalHeight + (e.pageY - originalMouseY);
-        const width = originalWidth - (e.pageX - originalMouseX);
-        const widthDots = originalWidthDots - (e.pageX - originalMouseX);
-        const heightDots = originalHeightDots + (e.pageY - originalMouseY);
+    function resizeBottomLeft(e) {
+        var height = originalHeight + (e.pageY - originalMouseY);
+        var width = originalWidth - (e.pageX - originalMouseX);
+        var widthDots = originalWidthDots - (e.pageX - originalMouseX);
+        var heightDots = originalHeightDots + (e.pageY - originalMouseY);
         if (height > 150) {
-          ref.style.height = height + 'px'
-          refWithDots.style.height = heightDots + "px";
+            ref.style.height = height + 'px';
+            refWithDots.style.height = heightDots + "px";
         }
         if (width > 300) {
-          ref.style.width = width + 'px'
-          refWithDots.style.width = widthDots + 'px'
-          ref.style.left = originalX + (e.pageX - originalMouseX) + 'px'
+            ref.style.width = width + 'px';
+            refWithDots.style.width = widthDots + 'px';
+            ref.style.left = originalX + (e.pageX - originalMouseX) + 'px';
         }
     }
-
-    function resizeBottomRight(e){
-
-        const width = originalWidth + (e.pageX - originalMouseX);
-        const height = originalHeight + (e.pageY - originalMouseY)
-        const widthDots = originalWidthDots + (e.pageX - originalMouseX);
-        const heightDots = originalHeightDots + (e.pageY - originalMouseY);
+    function resizeBottomRight(e) {
+        var width = originalWidth + (e.pageX - originalMouseX);
+        var height = originalHeight + (e.pageY - originalMouseY);
+        var widthDots = originalWidthDots + (e.pageX - originalMouseX);
+        var heightDots = originalHeightDots + (e.pageY - originalMouseY);
         if (width > 300) {
-          ref.style.width = width + 'px'
-          refWithDots.style.width = widthDots + 'px'
+            ref.style.width = width + 'px';
+            refWithDots.style.width = widthDots + 'px';
         }
         if (height > 150) {
-          ref.style.height = height + 'px'
-          refWithDots.style.height = heightDots + 'px'
+            ref.style.height = height + 'px';
+            refWithDots.style.height = heightDots + 'px';
         }
     }
-
 }
+exports.makeResizable = makeResizable;
